@@ -18,10 +18,8 @@ RUN dpkg -i \
 
 RUN apt-get --purge remove -y wget
 
-COPY start.sh /usr/bin/start.sh
+RUN sed -i '25s/.*/listen_address = 0.0.0.0:4500/' /etc/foundationdb/foundationdb.conf
 
-RUN chmod 755 /usr/bin/start.sh
-
-ENTRYPOINT ["start.sh"]
+CMD /usr/lib/foundationdb/fdbmonitor
 
 EXPOSE 4500
